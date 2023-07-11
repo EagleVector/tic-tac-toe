@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import Block from './components/Block';
+import "./App.css"
 
 function App() {
+  const [state, setState] = useState(Array(9).fill(null));
+  const [currentTurn, setCurrentTurn] = useState("X");
+
+  const handleBlockClick = (index: number) => {
+    const stateCopy = Array.from(state)
+    stateCopy[index] = currentTurn;
+    setCurrentTurn(currentTurn === 'X' ? '0' : 'X');
+    setState(stateCopy);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='board'>
+      <div className='row'>
+        <Block onClick={() => handleBlockClick(0)} value={state[0]}/>
+        <Block onClick={() => handleBlockClick(1)} value={state[1]}/>
+        <Block onClick={() => handleBlockClick(2)} value={state[2]}/>
+      </div>
+      <div className='row'>
+        <Block onClick={() => handleBlockClick(3)} value={state[3]}/>
+        <Block onClick={() => handleBlockClick(4)} value={state[4]}/>
+        <Block onClick={() => handleBlockClick(5)} value={state[5]}/>
+      </div>
+      <div className='row'>
+        <Block onClick={() => handleBlockClick(6)} value={state[6]}/>
+        <Block onClick={() => handleBlockClick(7)} value={state[7]}/>
+        <Block onClick={() => handleBlockClick(8)} value={state[8]}/>
+      </div>
     </div>
   );
 }
